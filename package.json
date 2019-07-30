@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "vito24 <sunhan.win@gmail.com>",
   "dependencies": {
+    "docz": "^2.0.0-rc.1",
     "gatsby": "^2.13.31",
     "gatsby-image": "^2.2.6",
     "gatsby-plugin-less": "^2.1.2",
@@ -16,6 +17,7 @@
     "gatsby-remark-prismjs": "^3.3.3",
     "gatsby-remark-responsive-iframe": "^2.2.4",
     "gatsby-source-filesystem": "^2.1.5",
+    "gatsby-theme-docz": "^2.0.0-rc.1",
     "gatsby-transformer-remark": "^2.6.9",
     "gatsby-transformer-sharp": "^2.2.4",
     "less": "^3.9.0",
@@ -23,7 +25,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^5.2.1",
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
     "husky": "^3.0.1",
