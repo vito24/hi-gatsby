@@ -10,8 +10,6 @@ export default props => {
     pageContext: { previous, next }
   } = props;
 
-  console.log(previous, next);
-
   return (
     <Layout>
       <div>
@@ -42,9 +40,6 @@ export const query = graphql`
   query($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
       html
-      frontmatter {
-        title
-      }
       frontmatter {
         title
       }
