@@ -1,0 +1,47 @@
+@theme-color: rebeccapurple;
+
+.site-header {
+  height: 3.6rem;
+  background: @theme-color;
+
+  .site-header-box {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+
+    .site-header-title {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .site-header-nav {
+      height: 100%;
+      margin-left: 3rem;
+
+      ul {
+        height: 100%;
+        margin: 0;
+        li {
+          height: 100%;
+          line-height: 3.6rem;
+          display: inline-block;
+          text-align: center;
+          cursor: pointer;
+          margin: 0 1rem;
+          //border-bottom: 2px solid #fff;
+          //box-sizing: border-box;
+          &.nav-item-active {
+            box-sizing: border-box;
+            border-bottom: 2px solid #fff;
+          }
+
+          a {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}

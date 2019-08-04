@@ -1,0 +1,48 @@
+.docs-side {
+  width: 18rem;
+  position: absolute;
+  top: 3.6rem;
+  bottom: 0;
+  padding: 1rem 0;
+  background: #fff;
+  border-right: 1px solid rgb(240, 240, 242);
+
+  .menu-title {
+    color: rgb(120, 117, 122);
+    padding-left: 1.2rem;
+  }
+
+  ul {
+    margin: 0;
+
+    .menu-item {
+      color: #000;
+      font-size: 14px;
+      padding: 0.5rem 1.2rem;
+      position: relative;
+      &:before {
+        content: '';
+        width: 8px;
+        height: 8px;
+        position: absolute;
+        left: 0.4rem;
+        top: 1rem;
+        transform: scale(0.11);
+        border-radius: 100%;
+      }
+      &:hover {
+        color: rgb(102, 51, 153);
+        background: rgba(241, 222, 250, 0.275);
+
+        &:before {
+          transition: all 250ms;
+          transform: scale(1);
+          background: rgb(138, 75, 175);
+        }
+      }
+      &-active {
+        color: rgb(138, 75, 175);
+      }
+    }
+  }
+}

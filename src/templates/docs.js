@@ -7,13 +7,16 @@ import './index.less';
 
 export default props => {
   const {
-    data: { mdx: page },
-    pageContext: { previous, next }
+    data: { allMdx, mdx: page },
+    pageContext: { previous, next },
+    location
   } = props;
 
+  console.log('doc', location);
+
   return (
-    <Layout>
-      <h1>{page.frontmatter.title}</h1>
+    <Layout sideData={allMdx.edges} location={location}>
+      {/*<h1>{page.frontmatter.title}</h1>*/}
       <MDXRenderer slug={page.fields.slug}>{page.body}</MDXRenderer>
       <ul className="prev-next-wrapper">
         <li>
@@ -37,6 +40,20 @@ export default props => {
 
 export const query = graphql`
   query($slug: String!) {
+    allMdx(sort: { order: DESC, fields: [fields___slug] }) {
+      edges {
+        node {
+          id
+          excerpt
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+          }
+        }
+      }
+    }
     mdx(fields: { slug: { eq: $slug } }) {
       body
       fields {

@@ -11,7 +11,7 @@ exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
   return graphql(`
     query {
-      allMdx(sort: { order: DESC, fields: [fields___slug] }) {
+      allMdx(sort: { fields: [fields___slug], order: DESC }) {
         edges {
           node {
             id
@@ -25,7 +25,7 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
-      allMarkdownRemark {
+      allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
         edges {
           node {
             fields {
@@ -46,8 +46,8 @@ exports.createPages = ({ graphql, actions }) => {
 
     const posts = result.data.allMarkdownRemark.edges;
     posts.forEach(({ node }, index) => {
-      const previous = index === posts.length - 1 ? null : posts[index + 1].node;
-      const next = index === 0 ? null : posts[index - 1].node;
+      const previous = index === 0 ? null : posts[index - 1].node;
+      const next = index === posts.length - 1 ? null : posts[index + 1].node;
 
       createPage({
         path: node.fields.slug,
