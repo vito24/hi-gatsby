@@ -6,13 +6,13 @@ import './index.less';
 
 export default props => {
   const {
-    data: { allMarkdownRemark, markdownRemark: post },
+    data: { site, allMarkdownRemark, markdownRemark: post },
     pageContext: { previous, next },
     location
   } = props;
 
   return (
-    <Layout sideData={allMarkdownRemark.edges} location={location}>
+    <Layout site={site} sideData={allMarkdownRemark.edges} location={location}>
       <div>
         <h1>{post.frontmatter.title}</h1>
         <div dangerouslySetInnerHTML={{ __html: post.html }} />
@@ -39,6 +39,11 @@ export default props => {
 
 export const query = graphql`
   query($slug: String!) {
+    site {
+      siteMetadata {
+        title
+      }
+    }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       edges {
         node {

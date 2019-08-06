@@ -29,6 +29,7 @@
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
+    "react-intl": "^2.9.0",
     "rehype-docz": "^1.2.0",
     "styled-components": "^4.3.2"
   },

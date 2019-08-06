@@ -5,56 +5,72 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { useStaticQuery, graphql } from 'gatsby';
+// import { graphql } from 'gatsby';
+import { IntlProvider, addLocaleData } from 'react-intl';
 import Header from './header';
 import Sidebar from './sidebar';
+import * as utils from '../../utils';
+import enLocale from './en-US';
+import cnLocale from './zh-CN';
 
 import './index.less';
 
-const Layout = ({ children, sideData, location }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
+class Layout extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    location: PropTypes.object,
+    site: PropTypes.object,
+    sideData: PropTypes.array
+  };
 
-  console.log('layout', location);
+  static defaultProps = {
+    site: {},
+    sideData: []
+  };
 
-  return (
-    <>
-      <Header
-        siteTitle={data.site.siteMetadata.title}
-        pathname={location ? location.pathname : undefined}
-      />
-      <div className="docs-content">
-        {location && <Sidebar data={sideData} pathname={location.pathname} />}
-        <div className="docs-main">
-          <main>{children}</main>
-          <footer style={{ textAlign: 'center' }}>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
-          </footer>
+  constructor(props) {
+    super(props);
+    const { pathname } = props.location;
+    const appLocale = utils.isZhCN(pathname) ? cnLocale : enLocale;
+    addLocaleData(appLocale.data);
+
+    this.state = {
+      appLocale
+    };
+  }
+
+  render() {
+    const { appLocale } = this.state;
+    const {
+      children,
+      site,
+      sideData,
+      location: { pathname }
+    } = this.props;
+    const isHome = pathname === '/';
+
+    return (
+      // TODO
+      <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
+        <div>
+          <Header siteTitle={site.siteMetadata.title} pathname={pathname} />
+          <div className="docs-content">
+            {!isHome && <Sidebar data={sideData} pathname={pathname} />}
+            <div className="docs-main">
+              <main>{children}</main>
+              <footer style={{ textAlign: 'center' }}>
+                © {new Date().getFullYear()}, Built with
+                {` `}
+                <a href="https://www.gatsbyjs.org">Gatsby</a>
+              </footer>
+            </div>
+          </div>
         </div>
-      </div>
-    </>
-  );
-};
-
-Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-  location: PropTypes.object,
-  sideData: PropTypes.array
-};
-
-Layout.defaultProps = {
-  sideData: []
-};
+      </IntlProvider>
+    );
+  }
+}
 
 export default Layout;

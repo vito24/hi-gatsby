@@ -5,9 +5,9 @@ import Layout from '../components/layout';
 import Image from '../components/image';
 import SEO from '../components/seo';
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, location }) => {
   return (
-    <Layout>
+    <Layout site={data.site} location={location}>
       <SEO title="Home" />
       <p>Welcome to your new Gatsby site.</p>
 
@@ -33,6 +33,11 @@ export default IndexPage;
 
 export const query = graphql`
   query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
       totalCount
       edges {
