@@ -1,29 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'gatsby';
 import classNames from 'classnames';
 
 import './index.less';
 
-const Sidebar = ({ data, pathname }) => {
-  const isZh = pathname.endsWith('/index-cn/');
-  const menuTitle = pathname.startsWith('/blog') ? 'Blogs' : isZh ? '组件' : 'Components';
+class Sidebar extends Component {
+  static contextTypes = {
+    intl: PropTypes.object.isRequired
+  };
 
-  return (
-    <div className="docs-side">
-      <h4 className="menu-title">{menuTitle}</h4>
-      <ul>
-        {data
-          .filter(mdx => {
-            const {
-              node: {
-                fields: { slug }
-              }
-            } = mdx;
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    pathname: PropTypes.string.isRequired
+  };
 
-            return isZh ? slug.endsWith('/index-cn/') : !slug.endsWith('/index-cn/');
-          })
-          .map(mdx => {
+  render() {
+    const { data, pathname } = this.props;
+    const {
+      intl: { locale }
+    } = this.context;
+    const isZhCN = locale === 'zh-CN';
+
+    const menuTitle = pathname.startsWith('/blog') ? 'Blogs' : isZhCN ? '组件' : 'Components';
+
+    return (
+      <div className="docs-side">
+        <h4 className="menu-title">{menuTitle}</h4>
+        <ul>
+          {data.map(mdx => {
             const {
               node: {
                 fields: { slug },
@@ -41,14 +46,10 @@ const Sidebar = ({ data, pathname }) => {
               </Link>
             );
           })}
-      </ul>
-    </div>
-  );
-};
-
-Sidebar.propTypes = {
-  data: PropTypes.array.isRequired,
-  pathname: PropTypes.string.isRequired
-};
+        </ul>
+      </div>
+    );
+  }
+}
 
 export default Sidebar;

@@ -52,7 +52,6 @@ class Layout extends Component {
     const isHome = pathname === '/';
 
     return (
-      // TODO
       <IntlProvider locale={appLocale.locale} messages={appLocale.messages}>
         <div>
           <Header siteTitle={site.siteMetadata.title} pathname={pathname} />

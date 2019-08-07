@@ -7,6 +7,18 @@ import * as utils from '../../../utils';
 import './index.less';
 
 class Header extends React.Component {
+  static contextTypes = {
+    intl: PropTypes.object.isRequired
+  };
+
+  static propTypes = {
+    siteTitle: PropTypes.string
+  };
+
+  static defaultProps = {
+    siteTitle: ''
+  };
+
   render() {
     const { siteTitle, pathname } = this.props;
     const isBlog = pathname === '/' || pathname.startsWith('/blog');
@@ -49,17 +61,5 @@ class Header extends React.Component {
     );
   }
 }
-
-Header.contextTypes = {
-  intl: PropTypes.object.isRequired
-};
-
-Header.propTypes = {
-  siteTitle: PropTypes.string
-};
-
-Header.defaultProps = {
-  siteTitle: ''
-};
 
 export default Header;

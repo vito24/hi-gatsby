@@ -38,7 +38,7 @@ exports.createPages = ({ graphql, actions }) => {
         }
       }
     }
-  `).then((result) => {
+  `).then(result => {
     if (result.errors) return Promise.reject(errors);
     const blogTemplate = path.resolve('src/templates/blog.js');
     const docsTemplate = path.resolve('src/templates/docs.js');
@@ -63,9 +63,9 @@ exports.createPages = ({ graphql, actions }) => {
     });
 
     const docs = result.data.allMdx.edges;
-    docs.forEach(({ node }, index) => {
-      const previous = index === docs.length - 1 ? null : docs[index + 1].node;
-      const next = index === 0 ? null : docs[index - 1].node;
+    docs.forEach(({ node }) => {
+      // const previous = index === docs.length - 1 ? null : docs[index + 1].node;
+      // const next = index === 0 ? null : docs[index - 1].node;
 
       createPage({
         path: node.fields.slug,
@@ -73,9 +73,9 @@ exports.createPages = ({ graphql, actions }) => {
         context: {
           // Data passed to context is available
           // in page queries as GraphQL variables.
-          slug: node.fields.slug,
-          previous,
-          next
+          slug: node.fields.slug
+          // previous,
+          // next
         }
       });
     });
